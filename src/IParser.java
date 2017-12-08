@@ -3,7 +3,7 @@
  */
 public interface IParser {
 
-    Article parse(String args);
+
 
 
 }
