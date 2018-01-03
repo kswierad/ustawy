@@ -15,8 +15,6 @@ public class UokikParser implements IParser {
     public String[] parse(BufferedReader reader){
         try {
             ArrayList<String> rawText = new ArrayList<>();
-
-            //while(this.match(reader.readLine())!='B');
             while (true) {
                 String localLine = reader.readLine();
                 if(localLine==null) break;
@@ -64,14 +62,12 @@ public class UokikParser implements IParser {
 
         if(localLine.endsWith("-")){
             localLine=localLine.substring(0,localLine.length()-2);
-            //localLine=localLine + "\n";
             if(this.toAdd.isEmpty()){
                 localLine = this.match(localLine)+localLine;
             }
             this.toAdd.add(localLine);
             return "X";
         } else {
-            //localLine=localLine + "\n";
             if(this.toAdd.isEmpty()){
                 return this.match(localLine)+localLine;
             } else {

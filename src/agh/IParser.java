@@ -7,6 +7,6 @@ import java.io.BufferedReader;
  */
 public interface IParser {
 
-    public abstract String[] parse(BufferedReader reader);
+    String[] parse(BufferedReader reader);
 
 }

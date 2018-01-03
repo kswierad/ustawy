@@ -16,7 +16,6 @@ public class ConsParser implements IParser {
         try {
             ArrayList<String> rawText = new ArrayList<>();
             ArrayList<String> toAdd = new ArrayList<>();
-            //while(this.match(reader.readLine())!='B');
             while (true) {
                 String localLine = reader.readLine();
                 if(localLine==null) break;
@@ -54,14 +53,12 @@ public class ConsParser implements IParser {
     private String manipulate(String localLine){
         if(localLine.endsWith("-")){
             localLine=localLine.substring(0,localLine.length()-2);
-            //localLine=localLine + "\n";
             if(toAdd.isEmpty()){
                 localLine = this.match(localLine)+localLine;
             }
             toAdd.add(localLine);
             return "X";
         } else {
-            //localLine=localLine + "\n";
             if(toAdd.isEmpty()){
                 return this.match(localLine)+localLine;
             } else {

@@ -5,7 +5,7 @@ package agh;
  */
 public class ContentBuilder {
     private final String[] rawText;
-    boolean cons;
+    private boolean cons;
 
     public ContentBuilder(String[] rawText,boolean cons) {
         this.rawText = rawText;
@@ -22,15 +22,13 @@ public class ContentBuilder {
             switch (line.charAt(0)) {
                 case 'X': break;
                 case 'S':
-
                     lastContent = new Contents(document, ContentType.Section, this.cons);
                     lastContent.makeId(line,this.cons);
                     document.addChild(lastContent);
                     break;
                 case 'A':
-                    lastContent = ContentType.Article.findParent(lastContent);
-                    tmp = new Contents(lastContent, ContentType.Article, this.cons
-                    );
+                    lastContent = ContentType.Article.findParentType(lastContent);
+                    tmp = new Contents(lastContent, ContentType.Article, this.cons);
                     tmp.makeId(line,this.cons);
                     lastContent.addChild(tmp);
                     lastContent = tmp;
@@ -40,22 +38,20 @@ public class ContentBuilder {
                 case 'L':
                     if(line.charAt(0)=='P'){
                         lines = line.split("\\) ");
-                        lastContent = ContentType.Point.findParent(lastContent);
+                        lastContent = ContentType.Point.findParentType(lastContent);
                         tmp = new Contents(lastContent, ContentType.Point, this.cons);
                         tmp.makeId(line,this.cons);
                     } else if(line.charAt(0)=='L') {
                         lines = line.split("\\) ");
-                        lastContent = ContentType.Letter.findParent(lastContent);
+                        lastContent = ContentType.Letter.findParentType(lastContent);
                         tmp = new Contents(lastContent, ContentType.Letter, this.cons);
                         tmp.makeId(line,this.cons);
                     } else {
                         lines = line.split("\\. ");
-                        lastContent = ContentType.Paragraph.findParent(lastContent);
+                        lastContent = ContentType.Paragraph.findParentType(lastContent);
                         tmp = new Contents(lastContent, ContentType.Paragraph, this.cons);
                         tmp.makeId(line,this.cons);
                     }
-
-
                     lastContent.addChild(tmp);
                     for (int i = 1; i < lines.length ; i++ ) tmp.addText(lines[i]);
                     tmp.addText("\n");
@@ -63,7 +59,7 @@ public class ContentBuilder {
                     break;
                 case 'B':
                     if(lastContent.sameType(document)) break;
-                    lastContent = ContentType.SubSection.findParent(lastContent);
+                    lastContent = ContentType.SubSection.findParentType(lastContent);
                     tmp = new Contents(lastContent, ContentType.SubSection, this.cons);
                     tmp.makeId(line,this.cons);
                     tmp.addText(line.substring(1));
@@ -76,7 +72,7 @@ public class ContentBuilder {
                     lastContent.addText("\n");
                     break;
                 default:
-                    //throw new Exception();
+
             }
 
         }

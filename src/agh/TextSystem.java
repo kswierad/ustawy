@@ -18,8 +18,6 @@ public class TextSystem {
         f.setRequired(true);
         options.addOption(f);
 
-        OptionGroup group = new OptionGroup();
-
         Option w = new Option("w", "whole",  false, "print whole text");
         w.setRequired(false);
         options.addOption(w);
@@ -50,7 +48,7 @@ public class TextSystem {
             System.out.println(e.getMessage());
             System.out.println("Let you learn how to use it: " +
                             "\n 1. Make sure you have installed apache.commons.cli " +
-                            "\n 2.Open terminal" +
+                            "\n 2. Open terminal" +
                             "\n 3. Type name of bin" +
                             "\n 4. Add argument -f or --file and file location " +
                             "\n 5. Add argument -m or --mode and and type `table` if you wish to see table of content or `content` if you wish to see the content" +
@@ -63,7 +61,7 @@ public class TextSystem {
             return;
         }
         String file = cmd.getOptionValue("file");
-        System.out.println("\nloading file:" + file);
+        System.out.println("\nLoading File:" + file+ " ...");
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))){
             Contents parsedDocument = new Parser().parse(reader,cmd);
