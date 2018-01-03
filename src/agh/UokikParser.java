@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Student29 on 2017-12-01.
  */
-public class UokikParser extends AbstractParser{
+public class UokikParser implements IParser {
     private ArrayList<String> toAdd = new ArrayList<>();
 
     public String[] parse(BufferedReader reader){

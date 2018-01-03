@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 /**
  * Created by Student29 on 2017-12-01.
  */
-public class ConsParser extends AbstractParser{
-
+public class ConsParser implements IParser {
+    private ArrayList<String> toAdd = new ArrayList<>();
 
     public String[] parse(BufferedReader reader){
         try {
@@ -46,6 +46,7 @@ public class ConsParser extends AbstractParser{
         if(Pattern.matches("\\d+\\).*",localLine)) return 'P';
         if(Pattern.matches("[a-z]\\).*",localLine)) return 'L';
         if(Pattern.matches("\\p{Lu}\\p{Lu}.*",localLine)) return 'B';
+        if(localLine.length()<2) return 'X';
 
         return 'T';
     }

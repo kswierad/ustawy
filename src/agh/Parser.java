@@ -9,7 +9,7 @@ import org.apache.commons.cli.*;
 public class Parser {
     public Contents parse(BufferedReader reader,CommandLine cmd){
         boolean cons;
-        AbstractParser parser;
+        IParser parser;
         if(cmd.getOptionValue("f").matches(".*konstytucja.*")){
             parser = new ConsParser();
             cons = true;

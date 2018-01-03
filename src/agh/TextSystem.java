@@ -69,6 +69,7 @@ public class TextSystem {
             Contents parsedDocument = new Parser().parse(reader,cmd);
             Printer printer = new Printer();
             printer.print(parsedDocument,cmd);
+
         } catch (IOException ex) {
             System.out.println("Problem IO: " + ex);
         }
