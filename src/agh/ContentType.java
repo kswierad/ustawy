@@ -13,25 +13,35 @@ public enum ContentType {
     Letter;
 
     @Override
-    public String toString(){
-        switch(this){
-            case Header: return "H";
-            case Section: return "S";
-            case SubSection: return "B";
-            case Article: return "A";
-            case Paragraph: return "R";
-            case Point: return "P";
-            case Letter: return "L";
-            default: return null;
+    public String toString() {
+        switch (this) {
+            case Header:
+                return "H";
+            case Section:
+                return "S";
+            case SubSection:
+                return "B";
+            case Article:
+                return "A";
+            case Paragraph:
+                return "R";
+            case Point:
+                return "P";
+            case Letter:
+                return "L";
+            default:
+                return null;
         }
     }
 
-    public boolean lowerType(ContentType type){
-        switch(this){
-            case Header: return type==Header;
-            case Section: return (type==Header||type==Section);
+    public boolean lowerType(ContentType type) {
+        switch (this) {
+            case Header:
+                return type == Header;
+            case Section:
+                return (type == Header || type == Section);
             case SubSection:
-                switch (type){
+                switch (type) {
                     case Header:
                     case Section:
                     case SubSection:
@@ -41,10 +51,11 @@ public enum ContentType {
                     case Point:
                     case Letter:
                         return false;
-                    default: return false;
+                    default:
+                        return false;
                 }
             case Article:
-                switch (type){
+                switch (type) {
                     case Header:
                     case Section:
                     case SubSection:
@@ -54,10 +65,11 @@ public enum ContentType {
                     case Point:
                     case Letter:
                         return false;
-                    default: return false;
+                    default:
+                        return false;
                 }
             case Paragraph:
-                switch (type){
+                switch (type) {
                     case Header:
                     case Section:
                     case SubSection:
@@ -67,10 +79,11 @@ public enum ContentType {
                     case Point:
                     case Letter:
                         return false;
-                    default: return false;
+                    default:
+                        return false;
                 }
             case Point:
-                switch (type){
+                switch (type) {
                     case Header:
                     case Section:
                     case SubSection:
@@ -80,15 +93,19 @@ public enum ContentType {
                         return true;
                     case Letter:
                         return false;
-                    default: return false;
+                    default:
+                        return false;
                 }
-            case Letter: return true;
-            default: return false;
+            case Letter:
+                return true;
+            default:
+                return false;
         }
     }
-    public Contents findParentType(Contents node){
-        while(!(!node.getType().lowerType(this)||node.getParent()==null)){
-            node=node.getParent();
+
+    public AbstractContent findParentType(AbstractContent node) {
+        while (!(!node.getType().lowerType(this) || node.getParent() == null)) {
+            node = node.getParent();
         }
         return node;
     }
