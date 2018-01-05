@@ -113,11 +113,12 @@ public abstract class AbstractContent implements IContent {
             iterator = this.articles.get(i);
             i++;
         }
-        if (whichOne.equals(toPrint)) {
+        if (this.cmpNumerals(iterator.id,whichOne)==0) {
             iterator.print(withContents);
             return;
         }
         if (iterator.printChild(toPrint)) return;
+
         boolean flag = true;
         for (AbstractContent child : iterator.children) {
             flag = !child.printChild(toPrint);
