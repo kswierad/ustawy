@@ -113,7 +113,7 @@ public abstract class AbstractContent implements IContent {
             iterator = this.articles.get(i);
             i++;
         }
-        if (this.cmpNumerals(iterator.id,whichOne)==0) {
+        if (this.cmpNumerals(iterator.id,toPrint)==0) {
             iterator.print(withContents);
             return;
         }
