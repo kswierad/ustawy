@@ -8,7 +8,7 @@ import java.io.IOException;
  * Created by Kamil on 2018-01-03.
  */
 public class Printer {
-    public void print(AbstractContent parsedDocument, CommandLine cmd){
+    public void print(AbstractContent parsedDocument, CommandLine cmd) {
         String mode = cmd.getOptionValue("m");
         boolean showContent;
         switch (mode) {
@@ -24,7 +24,7 @@ public class Printer {
                 System.out.println("Unsupported mode!");
                 return;
         }
-        if(cmd.hasOption("w")) {
+        if (cmd.hasOption("w")) {
             parsedDocument.print(showContent);
             return;
         }

@@ -7,25 +7,26 @@ public class ContentBuilder {
     private final String[] rawText;
     private boolean cons;
 
-    public ContentBuilder(String[] rawText,boolean cons) {
+    public ContentBuilder(String[] rawText, boolean cons) {
         this.rawText = rawText;
-        this.cons=cons;
+        this.cons = cons;
     }
 
-    public AbstractContent buildContent(){
+    public AbstractContent buildContent() {
         AbstractContent document;
-        if(cons)
+        if (cons)
             document = new ConsContent(null, ContentType.Header);
         else
             document = new UokikContent(null, ContentType.Header);
         AbstractContent lastContent = document;
-        for(String line : this.rawText){
+        for (String line : this.rawText) {
             AbstractContent tmp;
             String[] lines;
             switch (line.charAt(0)) {
-                case 'X': break;
+                case 'X':
+                    break;
                 case 'S':
-                    if(cons)
+                    if (cons)
                         lastContent = new ConsContent(document, ContentType.Section);
                     else
                         lastContent = new UokikContent(document, ContentType.Section);
@@ -34,7 +35,7 @@ public class ContentBuilder {
                     break;
                 case 'A':
                     lastContent = ContentType.Article.findParentType(lastContent);
-                    if(cons)
+                    if (cons)
                         tmp = new ConsContent(lastContent, ContentType.Article);
                     else
                         tmp = new UokikContent(lastContent, ContentType.Article);
@@ -45,17 +46,17 @@ public class ContentBuilder {
                 case 'P':
                 case 'R':
                 case 'L':
-                    if(line.charAt(0)=='P'){
+                    if (line.charAt(0) == 'P') {
                         lines = line.split("\\) ");
                         lastContent = ContentType.Point.findParentType(lastContent);
-                        if(cons)
+                        if (cons)
                             tmp = new ConsContent(lastContent, ContentType.Point);
                         else
                             tmp = new UokikContent(lastContent, ContentType.Point);
                         tmp.makeID(line);
-                    } else if(line.charAt(0)=='L') {
+                    } else if (line.charAt(0) == 'L') {
                         lines = line.split("\\) ");
-                        if(cons)
+                        if (cons)
                             tmp = new ConsContent(lastContent, ContentType.Letter);
                         else
                             tmp = new UokikContent(lastContent, ContentType.Letter);
@@ -63,21 +64,21 @@ public class ContentBuilder {
                     } else {
                         lines = line.split("\\. ");
                         lastContent = ContentType.Paragraph.findParentType(lastContent);
-                        if(cons)
+                        if (cons)
                             tmp = new ConsContent(lastContent, ContentType.Paragraph);
                         else
                             tmp = new UokikContent(lastContent, ContentType.Paragraph);
                         tmp.makeID(line);
                     }
                     lastContent.addChild(tmp);
-                    for (int i = 1; i < lines.length ; i++ ) tmp.addText(lines[i]);
+                    for (int i = 1; i < lines.length; i++) tmp.addText(lines[i]);
                     tmp.addText("\n");
                     lastContent = tmp;
                     break;
                 case 'B':
-                    if(lastContent.sameType(document)) break;
+                    if (lastContent.sameType(document)) break;
                     lastContent = ContentType.SubSection.findParentType(lastContent);
-                    if(cons)
+                    if (cons)
                         tmp = new ConsContent(lastContent, ContentType.SubSection);
                     else
                         tmp = new UokikContent(lastContent, ContentType.SubSection);

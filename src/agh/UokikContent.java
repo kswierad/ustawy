@@ -4,9 +4,10 @@ package agh;
  * Created by Kamil on 2018-01-05.
  */
 public class UokikContent extends AbstractContent {
-    public UokikContent(AbstractContent parent, ContentType type){
-        super(parent,type);
+    public UokikContent(AbstractContent parent, ContentType type) {
+        super(parent, type);
     }
+
     public void makeID(String madeFrom) {
 
         switch (this.type) {
@@ -38,7 +39,7 @@ public class UokikContent extends AbstractContent {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         switch (this.type) {
             case Header:
                 return "Ustawa\n" +
@@ -52,9 +53,9 @@ public class UokikContent extends AbstractContent {
             case Paragraph:
                 return this.id + " ";
             case Point:
-                return this.id+ " ";
+                return this.id + " ";
             case Letter:
-                return this.id+ " ";
+                return this.id + " ";
             default:
                 return "";
         }
