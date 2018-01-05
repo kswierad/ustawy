@@ -86,7 +86,7 @@ public enum ContentType {
             default: return false;
         }
     }
-    public Contents findParentType(Contents node){
+    public AbstractContent findParentType(AbstractContent node){
         while(!(!node.getType().lowerType(this)||node.getParent()==null)){
             node=node.getParent();
         }

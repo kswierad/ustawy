@@ -64,7 +64,7 @@ public class TextSystem {
         System.out.println("\nLoading File:" + file+ " ...");
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))){
-            Contents parsedDocument = new Parser().parse(reader,cmd);
+            AbstractContent parsedDocument = new Parser().parse(reader,cmd);
             Printer printer = new Printer();
             printer.print(parsedDocument,cmd);
 

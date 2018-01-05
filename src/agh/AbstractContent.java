@@ -21,7 +21,7 @@ public abstract class AbstractContent implements IContent {
         this.type=type;
         this.text= "";
     }
-
+    public abstract void makeID(String madeFrom);
     public void addText(String text){
         this.text=this.text+text;
     }

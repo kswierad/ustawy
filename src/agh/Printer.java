@@ -8,7 +8,7 @@ import java.io.IOException;
  * Created by Kamil on 2018-01-03.
  */
 public class Printer {
-    public void print(Contents parsedDocument, CommandLine cmd){
+    public void print(AbstractContent parsedDocument, CommandLine cmd){
         String mode = cmd.getOptionValue("m");
         boolean showContent;
         switch (mode) {

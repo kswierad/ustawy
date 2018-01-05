@@ -4,7 +4,7 @@ package agh;
  * Created by Kamil on 2018-01-05.
  */
 public class UokikContent extends AbstractContent {
-    public UokikContent(UokikContent parent, ContentType type){
+    public UokikContent(AbstractContent parent, ContentType type){
         super(parent,type);
     }
     public void makeID(String madeFrom) {

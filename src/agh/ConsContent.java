@@ -4,7 +4,7 @@ package agh;
  * Created by Kamil on 2018-01-05.
  */
 public class ConsContent extends AbstractContent{
-    public ConsContent(ConsContent parent, ContentType type){
+    public ConsContent(AbstractContent parent, ContentType type){
         super(parent,type);
     }
 

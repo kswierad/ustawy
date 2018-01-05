@@ -12,24 +12,33 @@ public class ContentBuilder {
         this.cons=cons;
     }
 
-    public Contents buildContent(){
-        Contents document = new Contents(null
-                , ContentType.Header,this.cons);
-        Contents lastContent = document;
+    public AbstractContent buildContent(){
+        AbstractContent document;
+        if(cons)
+            document = new ConsContent(null, ContentType.Header);
+        else
+            document = new UokikContent(null, ContentType.Header);
+        AbstractContent lastContent = document;
         for(String line : this.rawText){
-            Contents tmp;
+            AbstractContent tmp;
             String[] lines;
             switch (line.charAt(0)) {
                 case 'X': break;
                 case 'S':
-                    lastContent = new Contents(document, ContentType.Section, this.cons);
-                    lastContent.makeId(line,this.cons);
+                    if(cons)
+                        lastContent = new ConsContent(document, ContentType.Section);
+                    else
+                        lastContent = new UokikContent(document, ContentType.Section);
+                    lastContent.makeID(line);
                     document.addChild(lastContent);
                     break;
                 case 'A':
                     lastContent = ContentType.Article.findParentType(lastContent);
-                    tmp = new Contents(lastContent, ContentType.Article, this.cons);
-                    tmp.makeId(line,this.cons);
+                    if(cons)
+                        tmp = new ConsContent(lastContent, ContentType.Article);
+                    else
+                        tmp = new UokikContent(lastContent, ContentType.Article);
+                    tmp.makeID(line);
                     lastContent.addChild(tmp);
                     lastContent = tmp;
                     break;
@@ -39,18 +48,26 @@ public class ContentBuilder {
                     if(line.charAt(0)=='P'){
                         lines = line.split("\\) ");
                         lastContent = ContentType.Point.findParentType(lastContent);
-                        tmp = new Contents(lastContent, ContentType.Point, this.cons);
-                        tmp.makeId(line,this.cons);
+                        if(cons)
+                            tmp = new ConsContent(lastContent, ContentType.Point);
+                        else
+                            tmp = new UokikContent(lastContent, ContentType.Point);
+                        tmp.makeID(line);
                     } else if(line.charAt(0)=='L') {
                         lines = line.split("\\) ");
-                        lastContent = ContentType.Letter.findParentType(lastContent);
-                        tmp = new Contents(lastContent, ContentType.Letter, this.cons);
-                        tmp.makeId(line,this.cons);
+                        if(cons)
+                            tmp = new ConsContent(lastContent, ContentType.Letter);
+                        else
+                            tmp = new UokikContent(lastContent, ContentType.Letter);
+                        tmp.makeID(line);
                     } else {
                         lines = line.split("\\. ");
                         lastContent = ContentType.Paragraph.findParentType(lastContent);
-                        tmp = new Contents(lastContent, ContentType.Paragraph, this.cons);
-                        tmp.makeId(line,this.cons);
+                        if(cons)
+                            tmp = new ConsContent(lastContent, ContentType.Paragraph);
+                        else
+                            tmp = new UokikContent(lastContent, ContentType.Paragraph);
+                        tmp.makeID(line);
                     }
                     lastContent.addChild(tmp);
                     for (int i = 1; i < lines.length ; i++ ) tmp.addText(lines[i]);
@@ -60,8 +77,11 @@ public class ContentBuilder {
                 case 'B':
                     if(lastContent.sameType(document)) break;
                     lastContent = ContentType.SubSection.findParentType(lastContent);
-                    tmp = new Contents(lastContent, ContentType.SubSection, this.cons);
-                    tmp.makeId(line,this.cons);
+                    if(cons)
+                        tmp = new ConsContent(lastContent, ContentType.SubSection);
+                    else
+                        tmp = new UokikContent(lastContent, ContentType.SubSection);
+                    tmp.makeID(line);
                     tmp.addText(line.substring(1));
                     tmp.addText("\n");
                     lastContent.addChild(tmp);
